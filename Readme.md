@@ -1,5 +1,7 @@
 # Attest Backend Interview Question
 
+Solution explanation is [here](Solution.md).
+
 ## Facts
 
 * All data for this test is provided in the [survey-data](src/main/resources/survey-data) directory.

@@ -8,21 +8,24 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 
-public class ResponseRepo {
+public class ResponseRepo implements IResponseRepo {
     public List<Response> responses;
 
     public ResponseRepo() throws IOException {
         this.responses = ResponseRepo.loadResponses("responses.json");
     }
 
+    @Override
     public List<Response> responsesByRespondent(int respondentId) {
         return this.responses.stream().filter(response -> response.respondent == respondentId).toList();
     }
 
+    @Override
     public List<Response> responsesByRespondentAndQuestion(int respondentId, int questionId) {
         return this.responses.stream().filter(response -> response.respondent == respondentId && response.question == questionId).toList();
     }
 
+    @Override
     public List<Response> listResponses() {
         return this.responses;
     }

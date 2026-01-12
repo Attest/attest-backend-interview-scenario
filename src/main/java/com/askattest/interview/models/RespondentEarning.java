@@ -1,10 +1,10 @@
 package com.askattest.interview.models;
 
-public class Summary{
+public class RespondentEarning {
     private int respondent;
     private int amount;
     private int answers;
-    public Summary(int respondent){
+    public RespondentEarning(int respondent){
         this.respondent = respondent;
         this.amount = 0;
         this.answers = 0;

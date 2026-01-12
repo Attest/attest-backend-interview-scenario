@@ -7,20 +7,22 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
-public class SurveyRepo {
+public class SurveyRepo implements ISurveyRepo{
     public List<Survey> surveys;
 
     public SurveyRepo() throws IOException {
         this.surveys = Arrays.asList(SurveyRepo.loadSurvey("survey.json"));
     }
 
-    public Survey surveyById(int surveyId) {
+    @Override
+    public Optional<Survey> surveyById(int surveyId) {
         return surveys.stream().filter(survey -> survey.id == surveyId)
-                .findFirst()
-                .orElse(null);
+                .findFirst();
     }
 
+    @Override
     public List<Survey> listSurveys() {
         return this.surveys;
     }
