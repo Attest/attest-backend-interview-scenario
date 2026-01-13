@@ -1,24 +1,27 @@
 package com.askattest.interview;
 
-import com.askattest.interview.repository.ResponseRepo;
-import com.askattest.interview.repository.SurveyRepo;
-
-import java.io.IOException;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.picocontainer.DefaultPicoContainer;
+import org.picocontainer.MutablePicoContainer;
+import com.askattest.interview.models.RespondentEarning;
+import com.askattest.interview.repository.*;
+import com.askattest.interview.service.*;
 
 public class Main {
     public static void main(String[] args) {
-        SurveyRepo surveys;
-        ResponseRepo responses;
-        try {
-            surveys = new SurveyRepo();
-            responses = new ResponseRepo();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        MutablePicoContainer container = new DefaultPicoContainer();
 
-        Logger.getGlobal().log(Level.INFO, surveys.surveyById(200).toString());
-        Logger.getGlobal().log(Level.INFO, responses.responsesByRespondent(300).toString());
+        container.addComponent(ISurveyRepo.class, SurveyRepo.class);
+        container.addComponent(IResponseRepo.class, ResponseRepo.class);
+        container.addComponent(IQuestionCacheRepo.class, QuestionCacheRepo.class);
+        container.addComponent(IEarningService.class, EarningService.class);
+        IEarningService earningService = container.getComponent(IEarningService.class);
+
+        Map<Integer, RespondentEarning> respondentEarnings = earningService.calculateEarningsByRespondent();
+        respondentEarnings.values().forEach(respondentEarning ->
+                Logger.getGlobal().log(Level.INFO, respondentEarning.toString())
+        );
     }
 }
