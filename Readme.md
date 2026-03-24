@@ -71,3 +71,7 @@ To build, test and run the project use the following tasks
 $ mvn clean package exec:java
 ```
 
+## Developer References
+
+- [AGENTS.md](./AGENTS.md) -- AI agent instructions and project conventions
+- [Architecture Documentation](./docs/ARCHITECTURE.md) -- System architecture with diagrams
